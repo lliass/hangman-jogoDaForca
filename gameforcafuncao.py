@@ -1,17 +1,20 @@
 import random
-def troca_letra(palavraAux,indice, letra):
-    m1 = palavraAux[:indice] + letra + palavraAux[indice+1:]
+
+
+def troca_letra(palavraaux, indice, letra):
+    m1 = palavraaux[:indice] + letra + palavraaux[indice+1:]
     return m1
 
+
 def forca(erros):
-    f1 = '    ________' 
+    f1 = '    ________'
     f2 = '   |        |'
     f3 = '   |'
     f4 = '   |'
     f5 = '   |'
     f6 = '   |'
     f7 = '   |'
-    f8 = '__/|\__' 
+    f8 = '__/|\__'
     if erros >= 1:
         f3 = '   |        o'
     if erros == 2:
@@ -36,49 +39,49 @@ def forca(erros):
     print(f8)
 
 
-def palavras_erradas(erros,letraerrada,palv,palvoct):
+def palavras_erradas(erros, letraerrada, palv, palvoct):
 
-    print('A palavra é:',palvoct)
+    print('A palavra é:', palvoct)
 
     if erros >= 1:
-        print('Letras erradas:',letraerrada)
+        print('Letras erradas:', letraerrada)
 
     if erros == 7:
-        print('A palavra era: ',palv)
+        print('A palavra era: ', palv)
+
 
 def jogo_completo_forca():
     while True:
-        contErro = 0  
-        aux1 = ''      
-        wordAux = ''
-        leterro1 = ''  
-        aj = 1        
-        flagPalv = False  
-        flagWin = True
-        
+        aux_final = False
+        cont_erro = 0
+        aux1 = ''
+        word_aux = ''
+        leterro1 = ''
+        aj = 1
+        flag_palv = False
+        flag_win = True
         qntdlet = 0
-        qntdAcr = 0
+        qntd_acr = 0
         contlet = 0
-        listalet = ['PORTA','DEAD-POOL','HULK','HOMEM-ARANHA','MORANGO','JUMENTO','CARRO','VIUVA-NEGRA','HOMEM-DE-FERRO','MACACO']
+        listalet = ['PORTA', 'DEAD-POOL', 'HULK', 'HOMEM-ARANHA', 'MORANGO', 'JUMENTO', 'CARRO', 'VIUVA-NEGRA', 'HOMEM-DE-FERRO', 'MACACO']
         word = random.choice(listalet)
-        while contErro<=7 and flagWin:             
+        while cont_erro <= 7 and flag_win:
 
-            forca(contErro)
-            
+            forca(cont_erro)
             if aj == 1:
                 for x in range(len(word)):
-                    wordAux += word[x]+' '
-                    aux1 +='_ '
-                    qntdlet +=1 
-                aj+=1
+                    word_aux += word[x]+' '
+                    aux1 += '_ '
+                    qntdlet += 1
+                aj += 1
 
-            palavras_erradas(contErro,leterro1,word,aux1)
+            palavras_erradas(cont_erro, leterro1, word, aux1)
 
-            if qntdAcr==qntdlet: 
+            if qntd_acr == qntdlet:
                 print('Parabéns você acertou a palavra.')
-                flagWin = False
+                flag_win = False
 
-            if contErro <=6 and flagWin: 
+            if cont_erro <= 6 and flag_win:
                 flag_letra = False
                 while not flag_letra:
                     let = input('Digite uma letra:').upper()
@@ -86,22 +89,20 @@ def jogo_completo_forca():
                         print('Letra repetida.')
                     else:
                         flag_letra = True
-                
-            flagPalv = False
+            flag_palv = False
 
-            for i in range(len(wordAux)): 
-                if let == wordAux[i]:
+            for i in range(len(word_aux)):
+                if let == word_aux[i]:
                     aux1 = troca_letra(aux1, i, let)
-                    flagPalv = True 
+                    flag_palv = True
             contlet = word.count(let)
-            if flagPalv==True and contlet == 1:
-                qntdAcr=qntdAcr+1
+            if flag_palv and contlet == 1:
+                qntd_acr += 1
             else:
-                qntdAcr=qntdAcr+contlet
-                
-            if flagPalv == False:
+                qntd_acr += contlet
+            if flag_palv == aux_final:
                 leterro1 += let+' '
-                contErro+=1
+                cont_erro += 1
+
 
 jogo_completo_forca()
-
